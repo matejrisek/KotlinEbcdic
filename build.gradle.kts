@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.3.31"
+    `maven-publish`
 }
 
 group = "com.quarksplitter.ebcdic"
@@ -31,5 +32,17 @@ tasks.withType<Test> {
     useJUnitPlatform()
     testLogging {
         events("passed", "skipped", "failed")
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "com.quarksplitter.ebcdic"
+            artifactId = "KotlinEbcdic"
+            version = "0.0.1-SNAPSHOT"
+
+            from(components["java"])
+        }
     }
 }
